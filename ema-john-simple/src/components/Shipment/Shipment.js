@@ -10,6 +10,7 @@ const Shipment = () => {
     const { register, handleSubmit,  errors } = useForm();
     
     const [loggedInUser, setLoggedInUser] = useContext(UserContext)
+    
     const onSubmit = data => {
       const savedCart =getDatabaseCart();
       const productDetail = {...loggedInUser, product:savedCart, shipment: data, orderTime: new Date()}
