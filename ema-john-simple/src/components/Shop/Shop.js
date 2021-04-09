@@ -10,7 +10,11 @@ const Shop = () => {
     // const first10 = fakeData.slice(0,10)
     const [products, setProducts] = useState([])
     const [cart, setCart]= useState([]);
-   
+    const [search, setSearch] =useState('')
+
+    const handleSearch = event =>{
+        setSearch(event.target.value)
+    }
 
     const handleAddProduct = (product) => {
         const toBeAddedKey = product.key;
@@ -33,10 +37,10 @@ const Shop = () => {
     }
 
     useEffect(()=>{
-        fetch('https://powerful-savannah-96414.herokuapp.com/products')
+        fetch('http://localhost:4000/products?search='+search)
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[])
+    },[search])
 
     useEffect(()=>{
         const savedCart =getDatabaseCart();
@@ -54,6 +58,7 @@ const Shop = () => {
 
         <div className='twin-container'>
             <div className="product-container">
+                <input type="text" placeholder='search' onBlur={handleSearch}/>
                 {
                     products.map(pd =><Product
                         key ={pd.key}

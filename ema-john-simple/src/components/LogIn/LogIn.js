@@ -42,6 +42,7 @@ function LogIn() {
                     photo: photoURL
 
                 }
+                userIdToken();
                 setUser(SignedInUser)
                 setLoggedInUser(SignedInUser)
                 history.replace(from);
@@ -50,6 +51,15 @@ function LogIn() {
                 console.log(err);
 
             })
+    }
+
+
+    const userIdToken = () =>{
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+           sessionStorage.setItem('token', idToken)
+          }).catch(function(error) {
+            // Handle error
+          });
     }
 
     const handleSignOUt = () => {
